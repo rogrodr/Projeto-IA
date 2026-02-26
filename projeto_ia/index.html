@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Organizador IA Pro</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; flex-direction: column; align-items: center; padding: 50px; background: #f0f2f5; }
+        #chat, #lista { width: 450px; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        input { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .btn-analisar { background: #007bff; color: white; }
+        .btn-salvar { background: #28a745; color: white; margin-top: 10px; }
+        .btn-limpar { background: #dc3545; color: white; margin-top: 15px; }
+        .tarefa-item { background: #f8f9fa; border-left: 5px solid #007bff; padding: 15px; margin: 10px 0; display: flex; justify-content: space-between; align-items: center; border-radius: 4px; }
+        .btn-delete { background: none; color: #dc3545; width: auto; padding: 5px 10px; font-size: 18px; }
+        .btn-delete:hover { background: #ffeeee; }
+    </style>
+</head>
+<body>
+    <div id="chat">
+        <h3>Nova Tarefa (IA)</h3>
+        <input type="text" id="pergunta" placeholder="Ex: Estudar Java amanhã às 10h">
+        <button class="btn-analisar" onclick="processar()">Analisar com Gemini</button>
+        <div id="resultado"></div>
+    </div>
+
+    <div id="lista">
+        <h3>Minhas Tarefas Salvas</h3>
+        <div id="tarefasContainer"></div>
+        <button class="btn-limpar" onclick="limparTudo()">Limpar Toda a Lista</button>
+    </div>
+
+    <script>
+        window.onload = exibirTarefas;
+
+        async function processar() {
+            const pergunta = document.getElementById('pergunta').value;
+            const resEl = document.getElementById('resultado');
+            if(!pergunta) return alert("Digite algo primeiro!");
+            
+            resEl.innerHTML = "<p><i>IA analisando...</i></p>";
+            
+            try {
+                const res = await fetch('/perguntar', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ pergunta })
+                });
+                const data = await res.json();
+                const objetoTarefa = JSON.parse(data.resposta);
+
+                resEl.innerHTML = `
+                    <div style="background: #e9ecef; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <strong>Confirma os dados?</strong><br>
+                        📌 <b>Tarefa:</b> ${objetoTarefa.tarefa}<br>
+                        📅 <b>Prazo:</b> ${objetoTarefa.data}<br>
+                        <button class="btn-salvar" onclick='salvarTarefa(${JSON.stringify(objetoTarefa)})'>Confirmar e Salvar</button>
+                    </div>
+                `;
+            } catch (e) {
+                resEl.innerHTML = "<p style='color:red'>Erro ao processar. Tente ser mais claro na frase.</p>";
+            }
+        }
+
+        function salvarTarefa(tarefa) {
+            let tarefas = JSON.parse(localStorage.getItem('minhasTarefas') || '[]');
+            // Adiciona um ID único para cada tarefa para podermos excluir depois
+            tarefa.id = Date.now(); 
+            tarefas.push(tarefa);
+            localStorage.setItem('minhasTarefas', JSON.stringify(tarefas));
+            document.getElementById('resultado').innerHTML = "✅ Salvo com sucesso!";
+            document.getElementById('pergunta').value = "";
+            exibirTarefas();
+        }
+
+        function exibirTarefas() {
+            const container = document.getElementById('tarefasContainer');
+            const tarefas = JSON.parse(localStorage.getItem('minhasTarefas') || '[]');
+            
+            if(tarefas.length === 0) {
+                container.innerHTML = "<p>Nenhuma tarefa salva.</p>";
+                return;
+            }
+
+            container.innerHTML = tarefas.map(t => `
+                <div class="tarefa-item">
+                    <div>
+                        <b>${t.tarefa}</b><br>
+                        <small>📅 ${t.data}</small>
+                    </div>
+                    <button class="btn-delete" onclick="excluirTarefa(${t.id})" title="Excluir">×</button>
+                </div>
+            `).join('');
+        }
+
+        function excluirTarefa(id) {
+            let tarefas = JSON.parse(localStorage.getItem('minhasTarefas') || '[]');
+            tarefas = tarefas.filter(t => t.id !== id);
+            localStorage.setItem('minhasTarefas', JSON.stringify(tarefas));
+            exibirTarefas();
+        }
+
+        function limparTudo() {
+            if(confirm("Deseja apagar todas as tarefas?")) {
+                localStorage.removeItem('minhasTarefas');
+                exibirTarefas();
+            }
+        }
+    </script>
+</body>
+</html>
