@@ -1,24 +1,25 @@
+Markdown
 # 🤖 Projeto IA - Organizador de Tarefas Inteligente
 
 Este é um projeto Fullstack que utiliza a API do **Google Gemini 3** para processar linguagem natural e organizar listas de tarefas automaticamente. 
 
-O sistema permite que o usuário digite frases informais e a inteligência artificial extraia o título da tarefa e o prazo de entrega de forma estruturada.
+O sistema permite que o utilizador digite frases informais e a inteligência artificial extraia o título da tarefa e o prazo de entrega de forma estruturada.
 
 ---
 
 ## 📸 Demonstração do Projeto
 
-Abaixo você pode ver a interface do sistema processando uma entrada e salvando na lista de tarefas:
+Abaixo pode ver a interface do sistema a processar uma entrada e a guardar na lista de tarefas:
 
-![Interface do App](./screenshots/index.jpeg)
+![Interface da App](./screenshots/index.jpeg)
 
 ---
 
 ## 🚀 Funcionalidades
 
-* **Processamento de Linguagem Natural**: Utiliza o modelo `gemini-3-flash-preview` para entender as intenções do usuário.
-* **Extração de Dados**: Transforma frases como "estudar java amanhã" em um objeto JSON estruturado com tarefa e data.
-* **Persistência Local**: Salva as tarefas confirmadas no `localStorage` do navegador, mantendo os dados mesmo após atualizar a página.
+* **Processamento de Linguagem Natural**: Utiliza o modelo `gemini-3-flash-preview` para entender as intenções do utilizador.
+* **Extração de Dados**: Transforma frases como "estudar java amanhã" num objeto JSON estruturado com tarefa e data.
+* **Persistência Local**: Guarda as tarefas confirmadas no `localStorage` do navegador, mantendo os dados mesmo após atualizar a página.
 * **Gestão de Tarefas**: Permite visualizar a lista de afazeres e limpar o histórico completo.
 
 ---
@@ -28,7 +29,7 @@ Abaixo você pode ver a interface do sistema processando uma entrada e salvando 
 ### Backend
 * **Node.js**: Ambiente de execução.
 * **Express**: Framework para o servidor web e rotas da API.
-* **Dotenv**: Gerenciamento de variáveis de ambiente e segurança da API Key.
+* **Dotenv**: Gestão de variáveis de ambiente e segurança da API Key.
 
 ### IA
 * **Google Gemini API**: Motor de inteligência artificial generativa.
@@ -43,15 +44,28 @@ Abaixo você pode ver a interface do sistema processando uma entrada e salvando 
 
 O projeto foi organizado para manter o código-fonte separado das evidências visuais:
 
-* `projeto_ia/`: Contém todo o código do servidor Node.js e arquivos web.
-* `screenshots/`: Armazena as imagens de demonstração do funcionamento do app.
+* `projeto_ia/`: Contém todo o código do servidor Node.js e ficheiros web.
+* `screenshots/`: Armazena as imagens de demonstração do funcionamento da app.
 
 ---
 
-## 🔧 Como Rodar o Projeto
+## 🔧 Como Executar o Projeto
 
-1. Clone o repositório.
-2. Acesse a pasta `projeto_ia/`.
-3. Instale as dependências:
-   ```bash
-   npm install
+Para correr o projeto localmente, abra o terminal e siga estes passos simples:
+
+```bash
+# 1. Clone o repositório e entre na pasta
+git clone [https://github.com/rogrodr/projeto-ia.git](https://github.com/rogrodr/projeto-ia.git)
+cd projeto_ia
+
+# 2. Instale as dependências
+npm install
+Configuração da API:
+Crie um ficheiro chamado .env dentro da pasta projeto_ia e coloque a sua chave do Gemini:
+GEMINI_API_KEY=A_SUA_CHAVE_AQUI
+
+Iniciar o servidor:
+node index.js
+Por fim, aceda a http://localhost:3000 no seu navegador para utilizar a aplicação.
+
+Desenvolvido por rogrodr em 2026.
