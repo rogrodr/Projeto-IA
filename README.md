@@ -1,5 +1,5 @@
 Markdown
-# 🤖 Projeto IA - Organizador de Tarefas Inteligente
+# Projeto IA - Organizador de Tarefas Inteligente
 
 Este é um projeto Fullstack que utiliza a API do **Google Gemini 3** para processar linguagem natural e organizar listas de tarefas automaticamente. 
 
@@ -7,7 +7,7 @@ O sistema permite que o utilizador digite frases informais e a inteligência art
 
 ---
 
-## 📸 Demonstração do Projeto
+## Demonstração do Projeto
 
 Abaixo pode ver a interface do sistema a processar uma entrada e a guardar na lista de tarefas:
 
@@ -15,7 +15,7 @@ Abaixo pode ver a interface do sistema a processar uma entrada e a guardar na li
 
 ---
 
-## 🚀 Funcionalidades
+## Funcionalidades
 
 * **Processamento de Linguagem Natural**: Utiliza o modelo `gemini-3-flash-preview` para entender as intenções do utilizador.
 * **Extração de Dados**: Transforma frases como "estudar java amanhã" num objeto JSON estruturado com tarefa e data.
@@ -24,7 +24,7 @@ Abaixo pode ver a interface do sistema a processar uma entrada e a guardar na li
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 ### Backend
 * **Node.js**: Ambiente de execução.
@@ -40,7 +40,7 @@ Abaixo pode ver a interface do sistema a processar uma entrada e a guardar na li
 
 ---
 
-## 📂 Estrutura de Pastas
+## Estrutura de Pastas
 
 O projeto foi organizado para manter o código-fonte separado das evidências visuais:
 
@@ -49,7 +49,7 @@ O projeto foi organizado para manter o código-fonte separado das evidências vi
 
 ---
 
-## 🔧 Como Executar o Projeto
+## Como Executar o Projeto
 
 Para correr o projeto localmente, abra o terminal e siga estes passos simples:
 
@@ -67,5 +67,9 @@ GEMINI_API_KEY=A_SUA_CHAVE_AQUI
 Iniciar o servidor:
 node index.js
 Por fim, aceda a http://localhost:3000 no seu navegador para utilizar a aplicação.
+```
+---
 
-Desenvolvido por rogrodr em 2026.
+## Author
+Developed by rogrodr(Robson)
+
